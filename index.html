@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>anna私補資源 2.0 | 簡約設計版</title>
+    <style>
+        :root {
+            --bg: #f9f9f9;
+            --text: #2c3e50;
+            --light-text: #95a5a6;
+            --accent: #b8977e; /* 柔和的大地色調，比金色更簡約 */
+            --white: #ffffff;
+            --line: #eeeeee;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: 50px 20px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 2px; /* 方正設計更顯簡約 */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        /* 標題與導航 */
+        header { text-align: center; margin-bottom: 30px; }
+        .system-title { font-size: 1rem; letter-spacing: 3px; font-weight: 500; margin-bottom: 20px; }
+        .divider { color: var(--line); margin: 20px 0; font-size: 0.8rem; letter-spacing: 1px; }
+
+        nav { display: flex; justify-content: center; gap: 20px; }
+        .nav-item { cursor: pointer; color: var(--light-text); font-size: 0.85rem; transition: 0.3s; }
+        .nav-item:hover { color: var(--accent); }
+
+        /* 圖標與列表 (還原 Image 1 文字) */
+        .article-item {
+            display: flex;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--line);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .article-item:hover { padding-left: 10px; color: var(--accent); }
+        
+        .icon-svg { width: 18px; height: 18px; margin-right: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+        /* 錯題本 (還原 Image 2 結構) */
+        .mistake-box { margin-top: 30px; }
+        .mistake-row { margin-bottom: 25px; }
+        .mistake-header { font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; }
+        .sub-item { padding-left: 33px; font-size: 0.85rem; color: var(--light-text); margin: 5px 0; }
+        .flag-text { color: #e74c3c; font-size: 0.75rem; margin-left: 10px; letter-spacing: 1px; }
+
+        /* 隱藏邏輯 */
+        .hidden { display: none; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade { animation: fadeIn 0.5s ease; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="system-title">ANNA 私補資源：12 篇線上學習系統</div>
+        <div class="divider">一一一一一一一一一一一一一一一一一一一一一</div>
+        <nav>
+            <span class="nav-item" onclick="show('home')">[ 上傳新題 ]</span>
+            <span class="nav-item" onclick="show('home')">[ 練習模塊 ]</span>
+            <span class="nav-item" onclick="show('mistake')">[ 分類錯題本 ]</span>
+        </nav>
+        <div class="divider">一一一一一一一一一一一一一一一一一一一一一</div>
+    </header>
+
+    <!-- 篇章分類 (還原 Image 1) -->
+    <div id="page-home" class="fade">
+        <div style="font-size: 0.85rem; color: var(--light-text); margin-bottom: 20px;">篇章分類（請點擊篇章以展開練習選項）：</div>
+        
+        <div class="article-item" onclick="alert('準備進入練習...')">
+            <svg class="icon-svg"><circle cx="9" cy="9" r="8"></circle></svg>
+            1. 《論語》論仁、論孝、論君子
+        </div>
+        <div class="article-item">
+            <svg class="icon-svg"><circle cx="9" cy="9" r="8"></circle></svg>
+            2. 《孟子》魚我所欲也
+        </div>
+        <div class="article-item">
+            <svg class="icon-svg"><circle cx="9" cy="9" r="8"></circle></svg>
+            3. 《莊子》逍遙遊（節錄）
+        </div>
+        <div class="article-item">
+            <svg class="icon-svg"><circle cx="9" cy="9" r="8"></circle></svg>
+            4. 司馬遷《廉頗藺相如列傳》（節錄）
+        </div>
+    </div>
+
+    <!-- 錯題本 (還原 Image 2) -->
+    <div id="page-mistake" class="fade hidden">
+        <div class="mistake-box">
+            <div class="mistake-row">
+                <div class="mistake-header">
+                    <svg class="icon-svg"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                    蘇軾《念奴嬌．赤壁懷古》（5題錯誤）
+                </div>
+                <div class="sub-item">└── 字譯類 (2題)</div>
+                <div class="sub-item">└── 文章立意類 (1題)</div>
+                <div class="sub-item">└── 修辭手法類 (2題)</div>
+            </div>
+
+            <div class="mistake-row">
+                <div class="mistake-header">
+                    <svg class="icon-svg"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                    辛棄疾《青玉案．元夕》（8題錯誤）<span class="flag-text">REVISE</span>
+                </div>
+                <div class="sub-item">└── 字譯類 (3題)</div>
+                <div class="sub-item">└── 文章立意類 (4題)</div>
+                <div class="sub-item">└── 修辭手法類 (1題)</div>
+            </div>
+        </div>
+        <div class="divider" style="margin-top:40px">一一一一一一一一一一一一一一一一一一一一一</div>
+        <nav>
+            <span class="nav-item" onclick="show('home')">[ 重新挑戰該篇章 ]</span>
+            <span class="nav-item">[ 下載個人弱項清單 ]</span>
+        </nav>
+    </div>
+</div>
+
+<script>
+    function show(pageId) {
+        document.getElementById('page-home').classList.add('hidden');
+        document.getElementById('page-mistake').classList.add('hidden');
+        document.getElementById('page-' + pageId).classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>
