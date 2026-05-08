@@ -7,52 +7,179 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: -apple-system, "PingFang HK", sans-serif; background: #f0f2f5; margin: 0; padding-bottom: 50px; }
-        header { background: linear-gradient(135deg, #1a2a3a 0%, #0f1a24 100%); padding: 40px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        header h1 { font-size: 1.4rem; margin: 0; color: #ffffff; letter-spacing: 1px; font-weight: 600; }
-        nav { display: flex; background: #fff; border-bottom: 1px solid #eaeef2; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        nav div { flex: 1; text-align: center; padding: 16px; cursor: pointer; font-weight: 600; font-size: 0.95rem; color: #3a4a5c; transition: 0.2s; }
-        nav div.active { border-bottom: 3px solid #e67e22; color: #e67e22; }
-        nav div:hover:not(.active) { background: #f8f9fc; color: #e67e22; }
+        body {
+            font-family: -apple-system, "PingFang HK", sans-serif;
+            background: #FCF3D6;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+        header {
+            background: linear-gradient(135deg, #FED5D4 0%, #F5C6C6 100%);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 1.6rem;
+            margin: 0;
+            color: #765C55;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+        }
+        nav {
+            display: flex;
+            background: #D7ECE5;
+            border-bottom: 3px solid #765C55;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        nav div {
+            flex: 1;
+            text-align: center;
+            padding: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #765C55;
+            transition: 0.2s;
+        }
+        nav div.active {
+            background: #FED5D4;
+            border-bottom: 3px solid #765C55;
+            color: #4a3a36;
+        }
+        nav div:hover:not(.active) {
+            background: #FCF3D6;
+        }
         .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
         .chapter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .chapter-card { background: #ffffff; padding: 24px 12px; border-radius: 20px; text-align: center; cursor: pointer; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; }
-        .chapter-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); background: #fffef7; }
-        .chapter-card h3 { margin: 0 0 5px; font-size: 1rem; color: #1e2a36; }
+        .chapter-card {
+            background: #FFFFFF;
+            padding: 24px 12px;
+            border-radius: 30px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid #FED5D4;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(118,92,85,0.15);
+            border-color: #765C55;
+        }
+        .chapter-card h3 { margin: 0 0 5px; font-size: 1.1rem; color: #765C55; }
         .submenu { display: flex; flex-direction: column; gap: 16px; }
-        .sub-btn { padding: 32px; border-radius: 24px; text-align: center; font-weight: 700; cursor: pointer; transition: 0.2s; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .sub-btn.trans { background: #d1e9ff; color: #2980b9; }
-        .sub-btn.main { background: #d4edda; color: #27ae60; }
-        .sub-btn.rhet { background: #fff3cd; color: #d35400; }
-        .sub-btn:hover { transform: scale(0.98); filter: brightness(0.96); }
-        .quiz-box { background: #fff; padding: 25px; border-radius: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-        .opt-btn { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #e2e8f0; border-radius: 60px; background: #fff; text-align: left; cursor: pointer; transition: 0.1s; font-size: 0.95rem; }
-        .opt-btn.correct { background: #27ae60; color: #fff; border-color: #27ae60; }
-        .opt-btn.wrong { background: #e74c3c; color: #fff; border-color: #e74c3c; }
-        .anna-note { margin-top: 20px; padding: 15px; background: #fff9db; border-left: 4px solid #f1c40f; border-radius: 12px; display: none; }
-        .mistake-item { background: #fff; padding: 15px; border-radius: 20px; margin-bottom: 10px; border-left: 5px solid #e74c3c; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .redo-btn { background: #e67e22; color: white; border: none; padding: 6px 14px; border-radius: 40px; cursor: pointer; font-size: 0.8rem; margin-left: 10px; font-weight: 600; }
-        .weak-box { background: #fee; padding: 20px; border-radius: 24px; margin-top: 20px; }
-        footer { margin-top: 50px; padding: 30px 20px; background: #fff; text-align: center; border-top: 1px solid #eaeef2; }
+        .sub-btn {
+            padding: 32px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .sub-btn.trans { background: #D7ECE5; color: #2c6e5c; }
+        .sub-btn.main { background: #FED5D4; color: #a55a4f; }
+        .sub-btn.rhet { background: #FCF3D6; color: #b88b4a; border: 2px solid #FED5D4; }
+        .sub-btn:hover { transform: scale(0.97); filter: brightness(0.96); }
+        .quiz-box {
+            background: #FFFFFF;
+            padding: 25px;
+            border-radius: 40px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border: 1px solid #FED5D4;
+        }
+        .opt-btn {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            border: 2px solid #E8D5C0;
+            border-radius: 60px;
+            background: #FFF;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.1s;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .opt-btn.correct { background: #7EB09E; color: white; border-color: #7EB09E; }
+        .opt-btn.wrong { background: #E07A5F; color: white; border-color: #E07A5F; }
+        .anna-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: #FCF3D6;
+            border-left: 6px solid #F4A261;
+            border-radius: 20px;
+            display: none;
+        }
+        .mistake-item {
+            background: #FFF;
+            padding: 15px;
+            border-radius: 25px;
+            margin-bottom: 10px;
+            border-left: 8px solid #E07A5F;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .redo-btn {
+            background: #765C55;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .redo-btn:hover { background: #5c4640; }
+        .weak-box { background: #FED5D4; padding: 20px; border-radius: 30px; margin-top: 20px; }
+        footer {
+            margin-top: 50px;
+            padding: 30px 20px;
+            background: #D7ECE5;
+            text-align: center;
+            border-top: 3px solid #765C55;
+        }
         .page { display: none; }
         .page.active { display: block; }
-        .back { color: #e67e22; cursor: pointer; margin-bottom: 15px; display: inline-block; font-weight: 500; }
-        .q-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.85rem; color: #7f8c8d; }
+        .back {
+            color: #765C55;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: inline-block;
+            font-weight: 700;
+            background: #FCF3D6;
+            padding: 6px 15px;
+            border-radius: 40px;
+        }
+        .q-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: #765C55; font-weight: 600; }
         .stat-grid { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .stat-card { background: #fff; padding: 12px; border-radius: 20px; text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.1s; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
-        .stat-card h4 { margin: 0 0 5px; font-size: 0.95rem; }
-        .chart-container { background: #fff; padding: 20px; border-radius: 28px; margin-top: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .stat-card {
+            background: #FFF;
+            padding: 12px;
+            border-radius: 25px;
+            text-align: center;
+            border: 2px solid #FED5D4;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .stat-card h4 { margin: 0 0 5px; font-size: 0.95rem; color: #765C55; }
+        .chart-container { background: #FFF; padding: 20px; border-radius: 35px; margin-top: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
         canvas { max-height: 250px; width: 100%; }
         .mistake-subpage { display: none; }
     </style>
 </head>
 <body>
-<header><h1>ANNA私補資源：DSE中文16篇範文</h1></header>
-<nav><div id="nav-home" class="active" onclick="showPage('home')">篇章目錄</div><div id="nav-mis" onclick="showMistakes()">錯題本</div></nav>
+<header><h1>🎓 ANNA私補資源｜DSE中文16篇範文</h1></header>
+<nav><div id="nav-home" class="active" onclick="showPage('home')">📚 篇章目錄</div><div id="nav-mis" onclick="showMistakes()">📊 錯題本</div></nav>
 <div class="container">
     <div id="page-home" class="page active"><div class="chapter-grid" id="chapter-list"></div></div>
     <div id="page-sub" class="page"><div class="back" onclick="showPage('home')">← 返回目錄</div><h2 id="sub-title"></h2><div class="submenu"><div class="sub-btn trans" onclick="startQuiz('語譯')">📖 語 譯</div><div class="sub-btn main" onclick="startQuiz('文章大意')">📝 文章大意</div><div class="sub-btn rhet" onclick="startQuiz('修辭手法')">🎨 修辭手法</div></div></div>
-    <div id="page-quiz" class="page"><div class="back" onclick="showPage('sub')">← 放棄練習</div><div class="quiz-box"><div class="q-header"><span id="q-counter"></span><span>DSE 範文</span></div><div id="q-text" style="font-weight:600;margin-bottom:20px;"></div><div id="options"></div><div id="anna-box" class="anna-note"><b>📌 Anna 糾錯：</b><span id="anna-text"></span><button onclick="nextQ()" style="margin-top:15px;padding:10px 24px;background:#e67e22;color:#fff;border:none;border-radius:40px;cursor:pointer;font-weight:600;">下一題 →</button></div></div></div>
+    <div id="page-quiz" class="page"><div class="back" onclick="showPage('sub')">← 放棄練習</div><div class="quiz-box"><div class="q-header"><span id="q-counter"></span><span>✍️ 練習中</span></div><div id="q-text" style="font-weight:600;margin-bottom:20px;"></div><div id="options"></div><div id="anna-box" class="anna-note"><b>📌 Anna 糾錯：</b><span id="anna-text"></span><button onclick="nextQ()" style="margin-top:15px;padding:10px 24px;background:#765C55;color:#fff;border:none;border-radius:40px;cursor:pointer;font-weight:600;">下一題 →</button></div></div></div>
     <div id="page-mistake" class="page">
         <div id="mistake-stat" class="mistake-subpage">
             <div class="back" onclick="showPage('home')">← 返回目錄</div>
@@ -67,22 +194,22 @@
         </div>
         <div id="mistake-redo" class="mistake-subpage" style="display:none;">
             <div class="back" onclick="showMistakeListView()">← 返回錯題列表</div>
-            <div class="quiz-box"><div class="q-header"><span id="redo-counter"></span><span>重做錯題</span></div><div id="redo-q-text" style="font-weight:600;margin-bottom:20px;"></div><div id="redo-options"></div><div id="redo-anna-box" class="anna-note"><b>📌 Anna 糾錯：</b><span id="redo-anna-text"></span><button id="redo-next-btn" style="margin-top:15px;padding:10px 24px;background:#e67e22;color:#fff;border:none;border-radius:40px;cursor:pointer;font-weight:600;">下一題 →</button></div></div>
+            <div class="quiz-box"><div class="q-header"><span id="redo-counter"></span><span>🔁 重做錯題</span></div><div id="redo-q-text" style="font-weight:600;margin-bottom:20px;"></div><div id="redo-options"></div><div id="redo-anna-box" class="anna-note"><b>📌 Anna 糾錯：</b><span id="redo-anna-text"></span><button id="redo-next-btn" style="margin-top:15px;padding:10px 24px;background:#765C55;color:#fff;border:none;border-radius:40px;cursor:pointer;font-weight:600;">下一題 →</button></div></div>
         </div>
     </div>
 </div>
 <footer><div>WeChat：Septvixxxx | WhatsApp：65443278</div><div style="font-size:0.8rem;margin-top:10px;">📖 練習方式：先做「語譯」打好基礎 → 答錯必看糾錯 → 每週檢查錯題本</div></footer>
 
 <script>
-    // ========== 邀請碼驗證（固定碼） ==========
-    const VALID_CODES = ["ANNA2026", "DSE2026", "STUDENT01"];  // 你可以自行增減
+    // ========== 邀請碼驗證 ==========
+    const VALID_CODES = ["ANNA2026", "DSE2026", "STUDENT01"];
     (function() {
         if (!localStorage.getItem('anna_auth')) {
-            let code = prompt("請輸入邀請碼以使用本平台：");
+            let code = prompt("🔐 請輸入邀請碼以使用本平台：");
             if (VALID_CODES.includes(code)) {
                 localStorage.setItem('anna_auth', 'true');
             } else {
-                alert("邀請碼錯誤，無法使用。");
+                alert("❌ 邀請碼錯誤，無法使用。");
                 document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px'>🔒 未經授權，無法使用本平台。</h2>";
                 throw new Error("Invalid invite code");
             }
@@ -96,7 +223,7 @@
     let db = {};
     for(let i=0;i<chapters.length;i++) db[chapters[i]] = { author: authors[i], items: { "語譯": [], "文章大意": [], "修辭手法": [] } };
     
-    // ---------- 1. 登樓 ----------
+    // ---------- 1. 登樓 (完整題目，從用戶提供的文檔轉換) ----------
     db["登樓"].items["語譯"] = [
         { q: "「萬方多難此登臨」中的「萬方多難」意思是？", a: ["四方百姓疾苦","天下多災多難","國家戰亂頻仍","朝廷內外交困"], c: 1, n: "賞析：以「萬方多難」作為登臨的背景。" },
         { q: "「錦江春色來天地」中的「錦江」是？", a: ["一種絲織品","岷江的支流，流經成都","長江的別稱","杜甫草堂附近的河流"], c: 1, n: "注釋1：錦江：岷江的支流，大部分河段流經成都。" },
@@ -104,7 +231,7 @@
         { q: "「北極朝廷終不改」中的「北極」比喻？", a: ["北方邊境","北方的朝廷","北極星","帝王"], c: 1, n: "注釋3：北極：北極星，比喻北方的朝廷。" },
         { q: "「西山寇盜莫相侵」中的「西山寇盜」指？", a: ["回紇","吐蕃","契丹","西夏"], c: 1, n: "注釋4：西山寇盜：指吐蕃。" },
         { q: "「可憐後主還祠廟」中的「後主」指？", a: ["劉備","劉禪","劉表","劉璋"], c: 1, n: "注釋5：後主：三國時期蜀漢的後主劉禪。" },
-        { q: "「日暮聊為梁甫吟」中的「梁甫吟」是？", a: ["一種樂器","諸葛亮躬耕時愛吟唱的歌謠","杜甫自創的詩題","一種祭祀音樂"], c: 1, n: "注釋6：《梁甫吟》：諸葛亮在隆中躬耕時，好為《梁父吟》。", },
+        { q: "「日暮聊為梁甫吟」中的「梁甫吟」是？", a: ["一種樂器","諸葛亮躬耕時愛吟唱的歌謠","杜甫自創的詩題","一種祭祀音樂"], c: 1, n: "注釋6：《梁甫吟》：據《三國志·蜀志》，諸葛亮在隆中躬耕時，好為《梁父吟》。" },
         { q: "「花近高樓傷客心」中的「客」指？", a: ["遊客","杜甫自己（客居在外）","客人","旅人"], c: 1, n: "賞析：春光再度，而詩人依然客居在外。" }
     ];
     db["登樓"].items["文章大意"] = [
@@ -128,7 +255,7 @@
         { q: "「可憐後主還祠廟」運用了？", a: ["用典","借代","比喻","誇張"], c: 0, n: "引用劉禪的典故。" }
     ];
 
-    // ---------- 2. 山居秋暝 ----------
+    // ---------- 2. 山居秋暝 (完整題目) ----------
     db["山居秋暝"].items["語譯"] = [
         { q: "「山居秋暝」中的「暝」意思是？", a: ["明亮","黃昏時候","夜晚","昏暗"], c: 1, n: "注釋1：暝：黃昏時候。" },
         { q: "「空山新雨後」中的「空山」意思是？", a: ["空曠的山","空無一人的山","幽靜的山","空靈的山"], c: 2, n: "賞析：強調幽靜。" },
@@ -150,7 +277,7 @@
         { q: "《楚辭·招隱士》原句「王孫兮歸來，山中兮不可以久留」的意思是？", a: ["山中環境優美，可以久留","山中環境寂寞可怕，不能久留","王孫應該歸來","山中不宜隱居"], c: 1, n: "賞析：原意是山中環境寂寞可怕，不能久留。" },
         { q: "王維反用典故，說「王孫自可留」，表達了怎樣的感情？", a: ["對官場的留戀","對山中隱居生活的嚮往和喜愛","對春天的懷念","對王孫的勸說"], c: 1, n: "賞析：反映對隱居生活的嚮往。" },
         { q: "明人胡應麟稱許王維的詩「清而秀」，下列哪項最能概括本詩的整體意境？", a: ["雄渾壯闊","清幽明淨","悲涼蕭瑟","熱鬧歡快"], c: 1, n: "賞析：營造空山秋夜清幽明淨的意境。" },
-        { q: "《山居秋暝》是五言律詩，其第三聯（第五、六句）稱為？", a: ["首聯","頷聯","頸聯","尾聯"], c: 2, n: "律詩結構：首聯（1,2句）、頷聯（3,4句）、頸聯（5,6句）、尾聯（7,8句）。" },
+        { q: "《山居秋暝》是五言律詩，其第三聯（第五、六句）稱為？", a: ["首聯","頷聯","頸聯","尾聯"], c: 2, n: "律詩結構。" },
         { q: "《山居秋暝》押的是什麼韻？", a: ["平聲韻（秋、流、舟、留）","仄聲韻","入聲韻","不押韻"], c: 0, n: "詩中押「秋」「流」「舟」「留」，同屬平聲尤韻。" }
     ];
     db["山居秋暝"].items["修辭手法"] = [
@@ -160,7 +287,9 @@
         { q: "「空山新雨後」中的「空」字，從修辭角度看是？", a: ["鍊字","比喻","誇張","擬人"], c: 0, n: "一字寫出山的幽靜。" },
         { q: "「隨意春芳歇，王孫自可留」反用《楚辭》典故，這種手法稱為？", a: ["用典","反用典故","引用","化用"], c: 1, n: "賞析：反用其意。" },
         { q: "下列哪一項是本詩運用的主要修辭手法？", a: ["對偶","比喻","誇張","排比"], c: 0, n: "頷聯、頸聯都是對偶句。" }
-    ]; // ---------- 3. 月下獨酌 ----------
+    ];
+
+    // ---------- 3. 月下獨酌 (完整題目) ----------
     db["月下獨酌"].items["語譯"] = [
         { q: "「獨酌無相親」中的「相親」意思是？", a: ["互相親愛","可相親近的人","相親相愛","親戚朋友"], c: 1, n: "注釋1：此處指可相親近的人。" },
         { q: "「舉杯邀明月，對影成三人」中的「三人」指？", a: ["李白、月亮、影子","李白、月亮、酒杯","李白、影子、酒杯","月亮、影子、花"], c: 0, n: "注釋2：三人：指李白、月和李白的影子。" },
@@ -169,20 +298,24 @@
         { q: "「暫伴月將影」中的「將」意思是？", a: ["將要","帶領","和、共","跟隨"], c: 2, n: "注釋4：將：和、共。" },
         { q: "「行樂須及春」中的「及春」意思是？", a: ["趕上春天","趁着春天","等到春天","以及春天"], c: 1, n: "注釋5：及春：趁着春天。" },
         { q: "「我歌月徘徊」中的「徘徊」意思是？", a: ["猶豫不決","往返迴旋、來回走動","徘徊不前","環繞"], c: 1, n: "注釋6：徘徊：往返迴旋、來回走動。" },
-        { q: "「永結無情遊」中的「無情」意思是？", a: ["沒有感情","忘情（泯除物我之別）","無情無義","不講人情"], c: 1, n: "注釋10：無情：即忘情，指泯除物我之別的境界。" },
+        { q: "「我舞影零亂」中的「零亂」意思是？", a: ["整齊","散亂","凌亂","雜亂"], c: 1, n: "賞析：因酒醉而令身影變得散亂。" },
+        { q: "「醒時同交歡」中的「交歡」意思是？", a: ["交際歡樂","一同歡樂","互相歡愛","歡聚"], c: 1, n: "注釋8：交歡：一同歡樂。" },
+        { q: "「永結無情遊」中的「無情」意思是？", a: ["沒有感情","忘情（泯除物我之別）","無情無義","不講人情"], c: 1, n: "注釋10：無情：即忘情，語出《莊子·德充符》，指泯除是非得失、物我之別的境界。" },
         { q: "「相期邈雲漢」中的「邈」意思是？", a: ["渺小","遙遠","輕視","超越"], c: 1, n: "注釋11：邈：遙遠。" },
         { q: "「相期邈雲漢」中的「雲漢」指？", a: ["雲彩","銀河","天空","雲霄"], c: 1, n: "注釋11：雲漢：銀漢，即銀河。" }
     ];
     db["月下獨酌"].items["文章大意"] = [
-        { q: "《月下獨酌》是李白在哪種背景下創作的？", a: ["安史之亂期間","在長安任翰林供奉，受權貴排擠，心情抑鬱","流放夜郎途中","與友人分別時"], c: 1, n: "背景資料：因受權貴排擠而漸為玄宗疏遠，心情抑鬱。" },
+        { q: "《月下獨酌》是李白在哪種背景下創作的？", a: ["安史之亂期間","在長安任翰林供奉，受權貴排擠，心情抑鬱","流放夜郎途中","與友人分別時"], c: 1, n: "背景資料：李白於長安任翰林供奉，因受權貴排擠而漸為玄宗疏遠，李白心情抑鬱。" },
         { q: "李白創作《月下獨酌》時，藉哪種行為排解心中鬱悶？", a: ["隱居山林","狂歌痛飲","漫遊山水","求仙學道"], c: 1, n: "背景資料：寄情於狂歌痛飲，藉以排解胸中鬱悶。" },
         { q: "詩中「獨酌無相親」一句，直接點出詩人的哪種處境？", a: ["貧困潦倒","孤獨無人相伴","仕途失意","思念家鄉"], c: 1, n: "賞析：點出李白獨酌，無人相伴的處境。" },
-        { q: "李白「舉杯邀明月，對影成三人」，這種構思被清人孫洙評為？", a: ["平淡無奇","詩偏幻出三人，愈形其獨","矯揉造作","模仿前人"], c: 1, n: "賞析：愈形其獨。" },
-        { q: "「暫伴月將影，行樂須及春」中的「暫」字，說明了什麼？", a: ["李白只是暫時與月影為伴","這種解脫只是暫時的","李白只想短暫行樂","春天短暫"], c: 1, n: "賞析：「暫」字甚妙，因為只是暫時的解脫。" },
-        { q: "「醒時同交歡，醉後各分散」一聯，運用了什麼手法來表現情感的變化？", a: ["對比（醒時的歡樂 vs 醉後的分散）","排比","比喻","象徵"], c: 0, n: "賞析：對比醒時共樂與醉後分離。" },
-        { q: "詩的最後兩句「永結無情遊，相期邈雲漢」，表達了詩人怎樣的人生態度？", a: ["絕望消極","自我舒解、不為現實所困","逃避現實","憤世嫉俗"], c: 1, n: "賞析：流露出李白能夠自我舒解、不為現實所困的高情遠致。" },
-        { q: "全詩的情感變化是怎樣的？", a: ["喜→悲→喜","悲→喜→悲→喜","悲→喜→悲","喜→悲→喜→悲"], c: 1, n: "賞析：悲己之獨→喜成三人→悲月不解飲→喜月影共舞→轉入悲→以喜結。" },
-        { q: "詩中除了孤獨之情，還流露出李白對哪兩種事物的鍾愛？", a: ["花與月","酒與月","酒與花","月與影"], c: 1, n: "賞析：流露了李白對酒和月的一貫鍾愛。" },
+        { q: "李白「舉杯邀明月，對影成三人」，這種構思被清人孫洙《唐詩三百首》評為？", a: ["平淡無奇","詩偏幻出三人，愈形其獨","矯揉造作","模仿前人"], c: 1, n: "賞析：題本《獨酌》，詩偏幻出三人。月影伴說，反覆推動，愈形其獨。" },
+        { q: "詩中「月既不解飲，影徒隨我身」兩句，表達了詩人怎樣的情感轉折？", a: ["由孤獨轉為熱鬧","由喜得三人轉為復歸孤獨","由悲傷轉為喜悅","由憤怒轉為平靜"], c: 1, n: "賞析：雖有月和影相伴，但月畢竟不會飲酒，影子也徒然跟隨……故情感又復歸孤獨。" },
+        { q: "「暫伴月將影，行樂須及春」中的「暫」字，說明了什麼？", a: ["李白只是暫時與月影為伴","這種解脫只是暫時的","李白只想短暫行樂","春天短暫"], c: 1, n: "賞析：「暫」字甚妙，因為李白深明邀影邀月共樂，也只是暫時的解脫。" },
+        { q: "「我歌月徘徊，我舞影零亂」兩句，寫出李白怎樣的精神狀態？", a: ["悲傷絕望","狂放不羈、自我陶醉","冷靜理智","驚恐不安"], c: 1, n: "賞析：李白於是高歌……他又忽然興起，舞起劍來。" },
+        { q: "「醒時同交歡，醉後各分散」一聯，運用了什麼手法來表現情感的變化？", a: ["對比（醒時的歡樂 vs 醉後的分散）","排比","比喻","象徵"], c: 0, n: "賞析：醒時同交歡……醉後各分散流露出依然孤獨之傷歎。" },
+        { q: "詩的最後兩句「永結無情遊，相期邈雲漢」，表達了詩人怎樣的人生態度？", a: ["絕望消極","自我舒解、不為現實所困的高情遠致","逃避現實","憤世嫉俗"], c: 1, n: "賞析：流露出李白能夠自我舒解、不為現實所困的高情遠致。" },
+        { q: "全詩的情感變化是怎樣的？", a: ["喜→悲→喜","悲→喜→悲→喜","悲→喜→悲","喜→悲→喜→悲"], c: 1, n: "賞析：悲己之獨→喜成三人→悲月之不解飲→喜月影隨歌伴舞→轉入悲→以喜結。" },
+        { q: "詩中除了孤獨之情，還流露出李白對哪兩種事物的鍾愛？", a: ["花與月","酒與月","酒與花","月與影"], c: 1, n: "賞析：除了孤獨之外，此詩也流露了李白對酒和月的一貫鍾愛。" },
         { q: "沈德潛《唐詩別裁》評論此詩語言風格為？", a: ["華麗雕琢","純乎天籟","晦澀難懂","典雅莊重"], c: 1, n: "賞析：語言淺近如話，「純乎天籟」。", },
         { q: "《月下獨酌》是五言古詩，其押韻特點是？", a: ["一韻到底，平聲韻","換韻","仄聲韻","不押韻"], c: 0, n: "詩中押「親」「人」「身」「春」「亂」「散」「漢」，同屬平聲韻。" }
     ];
@@ -193,17 +326,17 @@
         { q: "「永結無情遊」中的「無情」一詞，化用自哪部典籍？", a: ["《論語》","《莊子》","《老子》","《楚辭》"], c: 1, n: "注釋10：語出《莊子·德充符》。" },
         { q: "「對影成三人」的「三人」，運用了什麼手法將抽象化為具體？", a: ["比喻","誇張","數詞修辭","借代"], c: 2, n: "以「三人」具體化孤獨中的幻想夥伴。" },
         { q: "下列哪一項不是本詩運用的修辭手法？", a: ["擬人","對偶","用典","排比"], c: 3, n: "詩中未有明顯的排比句。" }
-    ];
-
-    // ---------- 4. 念奴嬌·赤壁懷古 ----------
+    ]; // ---------- 4. 念奴嬌·赤壁懷古 ----------
     db["念奴嬌·赤壁懷古"].items["語譯"] = [
         { q: "「浪淘盡、千古風流人物」中的「淘」意思是？", a: ["淘洗","沖刷","淘汰","淘氣"], c: 1, n: "賞析：江水浩蕩東去，沖刷殆盡。" },
         { q: "「故壘西邊」中的「故壘」意思是？", a: ["舊的營壘","故鄉的堡壘","古代的堡壘","廢棄的城牆"], c: 0, n: "注釋1：故壘：舊的營壘。" },
         { q: "「人道是、三國周郎赤壁」中的「周郎」指？", a: ["周敦頤","周瑜","周亞夫","周勃"], c: 1, n: "注釋2：周郎：周瑜，字公瑾。" },
         { q: "「亂石穿空」中的「穿空」意思是？", a: ["穿透天空","插入天空","穿過天空","聳入天空"], c: 3, n: "賞析：巨石嶙峋，如插天際。" },
+        { q: "「驚濤拍岸」中的「驚濤」意思是？", a: ["驚人的浪濤","洶湧的波濤","驚恐的浪濤","巨大的波浪"], c: 1, n: "賞析：波濤洶湧拍岸。" },
         { q: "「捲起千堆雪」中的「雪」比喻？", a: ["雪花","白浪","白色泡沫","白綢"], c: 1, n: "賞析：白浪如雪。" },
         { q: "「遙想公瑾當年」中的「公瑾」是？", a: ["周瑜的字","諸葛亮的字","孫權的字","曹操的字"], c: 0, n: "注釋2：周瑜，字公瑾。" },
         { q: "「小喬初嫁了」中的「小喬」是？", a: ["喬玄的女兒，周瑜的妻子","孫策的妻子","諸葛亮的妻子","大喬的妹妹"], c: 0, n: "注釋3：小喬嫁給周瑜。" },
+        { q: "「雄姿英發」中的「英發」意思是？", a: ["英俊煥發","英氣勃發","才華橫溢","英雄氣概"], c: 1, n: "賞析：雄姿瀟灑、豪氣干雲。" },
         { q: "「羽扇綸巾」中的「綸巾」意思是？", a: ["用絲帶製成的頭巾","羽毛製成的帽子","綸布做的頭巾","絲綢頭巾"], c: 0, n: "注釋4：綸巾：用絲帶製成的頭巾。" },
         { q: "「檣櫓灰飛煙滅」中的「檣櫓」借代？", a: ["戰船","旗幟","武器","士兵"], c: 0, n: "注釋5：檣櫓：此處借代戰船。" },
         { q: "「故國神遊」中的「故國」指？", a: ["故鄉","當日的赤壁戰場","舊國家","古代國家"], c: 1, n: "注釋6：故國：當日的赤壁戰場。" },
@@ -212,16 +345,25 @@
     ];
     db["念奴嬌·赤壁懷古"].items["文章大意"] = [
         { q: "蘇軾寫作《念奴嬌·赤壁懷古》時，被貶謫到什麼地方？", a: ["惠州","黃州","儋州","杭州"], c: 1, n: "背景資料：詔貶為黃州團練副使。" },
+        { q: "蘇軾被貶黃州的原因是？", a: ["反對王安石變法","烏臺詩案","寫詩諷刺朝廷","結黨營私"], c: 1, n: "背景資料：蘇軾被彈劾以詩譏諷朝廷，詔貶為黃州團練副使，史稱「烏臺詩案」。", },
         { q: "詞中所寫的「赤壁」，實際上是？", a: ["赤壁大戰的真正戰場","黃州赤壁（赤鼻磯），並非當年赤壁大戰之地","嘉魚縣赤壁","虛構的地點"], c: 1, n: "背景資料：黃州赤壁，並非當年赤壁大戰之地。" },
         { q: "「大江東去，浪淘盡、千古風流人物」表達了詞人怎樣的情感？", a: ["對歷史人物的敬佩","時間流逝、物是人非的悲壯感歎","對江水的讚美","對家鄉的思念"], c: 1, n: "賞析：時間流逝，千古風流人物如被江浪淘盡，感歎悲壯。" },
         { q: "「亂石穿空，驚濤拍岸，捲起千堆雪」三句，主要運用了什麼感官描寫？", a: ["聽覺與嗅覺","視覺與聽覺","觸覺與視覺","視覺與嗅覺"], c: 1, n: "視覺（亂石、雪）與聽覺（驚濤拍岸）。" },
+        { q: "上片末句「江山如畫，一時多少豪傑」在結構上的作用是？", a: ["總結上片，引出下片懷念周瑜","結束上片，與下片無關","抒發個人感慨","描寫景色"], c: 0, n: "賞析：從上片末句引出周瑜。" },
         { q: "詞人為何特別懷念周瑜？", a: ["周瑜是他的同鄉","周瑜年輕有為，功成名就，與自己被貶、年華老去形成對比","周瑜是他的偶像","周瑜與他同姓"], c: 1, n: "賞析：反襯自己被貶官黃州，懷才不遇。" },
         { q: "「小喬初嫁了」的作用是？", a: ["寫周瑜婚姻幸福","以美人襯英雄，突出周瑜的年輕得意","介紹歷史人物","增加趣味"], c: 1, n: "賞析：英雄美人，名成利就。" },
         { q: "「羽扇綸巾，談笑間、檣櫓灰飛煙滅」塑造了周瑜怎樣的形象？", a: ["驍勇善戰的武將","從容不迫的儒將","陰險狡詐的謀士","貪生怕死的統帥"], c: 1, n: "賞析：談笑自若，盡顯儒將風範。" },
         { q: "「多情應笑我，早生華髮」中的「多情」指的是？", a: ["詞人對歷史的深情","詞人對美人的留戀","詞人對功業的執著和對人生的感慨","詞人的愛情"], c: 2, n: "賞析：自覺多情可笑，深感個人功業無成。" },
         { q: "詞的最後兩句「人間如夢，一尊還酹江月」，表達了詞人怎樣的人生態度？", a: ["絕望消極","積極進取","曠達超脫","憤世嫉俗"], c: 2, n: "賞析：世事如夢，何必執著，不如寄情江月。" },
-        { q: "下列哪一項最能概括本詞的風格？", a: ["婉約含蓄","豪放雄渾","清新淡雅","沉鬱頓挫"], c: 1, n: "賞析：蘇軾詞風格豪放，此詞為其豪放詞的代表。" },
+        { q: "下列哪一項最能概括本詞上片的內容？", a: ["懷念周瑜","描寫赤壁壯麗景色，感慨歷史","抒發個人失意","描寫江月"], c: 1, n: "賞析：上片主要描寫赤壁壯麗風景，感慨歷史。" },
+        { q: "下列哪一項最能概括本詞下片的內容？", a: ["描寫景色","緬懷周瑜，抒發個人感慨","議論人生","描寫戰爭場面"], c: 1, n: "賞析：下片主要緬懷前人及抒懷。" },
+        { q: "詞中「故國神遊」一詞，有兩種理解，一是蘇軾神遊赤壁古戰場，二是？", a: ["周瑜等三國英魂永留赤壁","蘇軾回到故鄉","蘇軾夢遊三國","蘇軾想像自己成為周瑜"], c: 0, n: "賞析：說明不朽的英魂永留赤壁。" },
+        { q: "本詞的風格被認為是？", a: ["婉約含蓄","豪放雄渾","清新淡雅","沉鬱頓挫"], c: 1, n: "賞析：蘇軾詞風格豪放，此詞為其豪放詞的代表。" },
         { q: "全詞押的是什麼韻？", a: ["平聲韻","上聲韻","去聲韻","入聲韻"], c: 3, n: "賞析：押物、壁、雪、傑、發、滅、髮、月諸入聲韻。" },
+        { q: "詞中「人道是、三國周郎赤壁」的「人道是」三字，說明了什麼？", a: ["詞人確信此地就是赤壁戰場","詞人對此說法存疑，只是聽人傳說","詞人否定此地是赤壁","詞人對歷史不感興趣"], c: 1, n: "賞析：「人道是」三字表明只是傳言。" },
+        { q: "下列哪一項不是本詞所表達的情感？", a: ["對歷史英雄的仰慕","對自己功業未成的感慨","對人生如夢的曠達","對朝廷的憤怒指責"], c: 3, n: "詞中並未直接指責朝廷。" },
+        { q: "蘇軾在黃州期間還寫了哪一篇著名作品？", a: ["《赤壁賦》","《後赤壁賦》","《赤壁賦》及《後赤壁賦》","《石鐘山記》"], c: 2, n: "背景資料：分別寫下《赤壁賦》及《念奴嬌·赤壁懷古》。", },
+        { q: "詞中「檣櫓灰飛煙滅」六字，運用了什麼手法來描寫戰爭？", a: ["詳細描寫","誇張渲染","濃縮概括","對比襯托"], c: 2, n: "賞析：六個字濃縮了戰爭的經過和結果，言簡意賅。" },
         { q: "本詞的詞牌名是「念奴嬌」，詞題是「赤壁懷古」，其中「念奴嬌」與內容的關係是？", a: ["詞牌規定字數、押韻，與內容無直接關係","詞題即內容主旨","兩者完全無關","詞牌決定主題"], c: 0, n: "詞牌名是音樂曲調的名稱，與詞的內容沒有必然聯繫；詞題由作者另擬，概括內容。" }
     ];
     db["念奴嬌·赤壁懷古"].items["修辭手法"] = [
@@ -231,7 +373,9 @@
         { q: "「檣櫓灰飛煙滅」中的「灰飛煙滅」運用了？", a: ["比喻","誇張","借代","對偶"], c: 0, n: "把敵軍戰船被燒毀比作灰燼飛散。" },
         { q: "「人間如夢」運用了？", a: ["比喻","誇張","借代","對偶"], c: 0, n: "把人生比作夢境。" },
         { q: "「江山如畫」運用了？", a: ["比喻","誇張","借代","擬人"], c: 0, n: "把江山比作畫。" }
-    ]; // ---------- 5. 聲聲慢·秋情 ----------
+    ];
+
+    // ---------- 5. 聲聲慢·秋情 ----------
     db["聲聲慢·秋情"].items["語譯"] = [
         { q: "「尋尋覓覓，冷冷清清，悽悽慘慘戚戚」中的「戚戚」意思是？", a: ["憂愁","悲痛","親戚","感歎"], c: 0, n: "賞析：表達悲痛。" },
         { q: "「乍暖還寒時候」中的「乍暖還寒」意思是？", a: ["忽然暖和又忽然寒冷","剛剛暖和又變回寒冷","天氣變化無常","忽冷忽熱"], c: 0, n: "注釋1：剛剛還很暖和，很快又變冷。" },
@@ -337,6 +481,7 @@
         { q: "「輮以為輪」中的「輮」通？", a: ["揉","柔","煣（用火烘木材使其彎曲）","蹂"], c: 2, n: "注釋8：輮：一說通「煣」，指用火烘木材，使它彎曲。" },
         { q: "「雖有槁暴」中的「槁暴」意思是？", a: ["枯乾曬乾","高暴","乾燥","曝曬"], c: 0, n: "注釋10：槁：枯乾。暴：通「曝」，曬乾。" },
         { q: "「金就礪則利」中的「就」意思是？", a: ["就近","接受","完成","趨向"], c: 1, n: "注釋13：就：接受，動詞。" },
+        { q: "「君子博學而日參省乎己」中的「參省」意思是？", a: ["參考反省","檢討反省","多次反省","參與省察"], c: 1, n: "注釋14：參省：檢討反省。" },
         { q: "「吾嘗跂而望矣」中的「跂」意思是？", a: ["站立","踮起腳跟","企盼","歧視"], c: 1, n: "注釋19：跂：踮起腳跟。" },
         { q: "「假輿馬者」中的「假」意思是？", a: ["假裝","憑藉、利用","假如","放假"], c: 1, n: "注釋22：假：假借，憑藉、利用之意。" },
         { q: "「君子生非異也」中的「生」通？", a: ["性（天賦、本性）","生命","生長","生活"], c: 0, n: "注釋28：生：通「性」，指天賦、本性。" },
@@ -661,21 +806,109 @@
         { q: "全文以四個「始」字和四個「遊」字串聯，這種手法是？", a: ["線索貫穿","反覆強調","排比","對偶"], c: 0, n: "賞析：以關鍵字串聯全文，賑絡清晰。" }
     ];
 
-    // ==================== 錯題本與答題邏輯 ====================
-    let mistakes = JSON.parse(localStorage.getItem('anna_mis')) || [];
+    // ==================== 錯題本與答題邏輯（按題目類型重做） ====================
+    let mistakes = JSON.parse(localStorage.getItem('anna_mis')) || [];  // 每條記錄 { ch, cat, q, count }
+    
     function recordMistake(ch, cat, qText) {
         let existing = mistakes.find(m => m.ch === ch && m.cat === cat && m.q === qText);
         if(existing) existing.count = (existing.count || 1) + 1;
         else mistakes.push({ ch, cat, q: qText, count: 1 });
         localStorage.setItem('anna_mis', JSON.stringify(mistakes));
     }
+    
     function removeMistake(ch, cat, qText) {
         mistakes = mistakes.filter(m => !(m.ch === ch && m.cat === cat && m.q === qText));
         localStorage.setItem('anna_mis', JSON.stringify(mistakes));
     }
-
+    
+    // 重做錯題列表（按篇章與類別，一次性抽所有錯題）
+    let redoQuestions = [];     // 存放 { qObj, mistakeRecord }
+    let redoIndex = 0;
+    
+    function startRedoByCategory(ch, cat) {
+        let catMistakes = mistakes.filter(m => m.ch === ch && m.cat === cat);
+        if(catMistakes.length === 0) {
+            alert("此篇章此類別暫無錯題！");
+            showMistakeListView(ch);
+            return;
+        }
+        redoQuestions = [];
+        for(let m of catMistakes) {
+            let qObj = db[ch].items[cat].find(item => item.q === m.q);
+            if(qObj) redoQuestions.push({ qObj, mistakeRecord: m });
+        }
+        if(redoQuestions.length === 0) {
+            alert("找不到對應的題目數據，請重試。");
+            return;
+        }
+        redoIndex = 0;
+        // 顯示重做頁面
+        document.querySelectorAll('.mistake-subpage').forEach(div => div.style.display = 'none');
+        document.getElementById('mistake-redo').style.display = 'block';
+        renderRedoQuestion();
+    }
+    
+    function renderRedoQuestion() {
+        if(redoIndex >= redoQuestions.length) {
+            alert("🎉 所有錯題已完成！錯題已清除。");
+            // 清除當前篇章類別的所有錯題（因為已全部答對）
+            let curMistakes = [...redoQuestions.map(r => r.mistakeRecord)];
+            for(let m of curMistakes) {
+                removeMistake(m.ch, m.cat, m.q);
+            }
+            showMistakeListView(redoQuestions[0]?.mistakeRecord.ch || "");
+            redoQuestions = [];
+            return;
+        }
+        let item = redoQuestions[redoIndex];
+        let q = item.qObj;
+        let count = item.mistakeRecord.count || 1;
+        document.getElementById('redo-counter').innerText = `${redoIndex+1} / ${redoQuestions.length} (本題錯${count}次)`;
+        document.getElementById('redo-q-text').innerText = q.q;
+        document.getElementById('redo-anna-box').style.display = 'none';
+        let optDiv = document.getElementById('redo-options');
+        optDiv.innerHTML = "";
+        q.a.forEach((txt, i) => {
+            let btn = document.createElement('button');
+            btn.className = 'opt-btn';
+            btn.innerText = txt;
+            btn.onclick = () => checkRedo(i, q.c, q.n, btn);
+            optDiv.appendChild(btn);
+        });
+        // 下一題按鈕臨時禁用
+        let nextBtn = document.getElementById('redo-next-btn');
+        nextBtn.onclick = () => { alert('請先回答當前題目'); };
+    }
+    
+    function checkRedo(idx, correct, note, btn) {
+        if(idx === correct) {
+            btn.classList.add('correct');
+            // 答對則移除當前錯題記錄
+            let current = redoQuestions[redoIndex];
+            removeMistake(current.mistakeRecord.ch, current.mistakeRecord.cat, current.mistakeRecord.q);
+            redoIndex++;
+            setTimeout(() => { renderRedoQuestion(); }, 600);
+        } else {
+            btn.classList.add('wrong');
+            document.getElementById('redo-anna-text').innerHTML = note;
+            document.getElementById('redo-anna-box').style.display = 'block';
+            // 增加錯誤次數
+            let current = redoQuestions[redoIndex];
+            let m = mistakes.find(m => m.ch === current.mistakeRecord.ch && m.cat === current.mistakeRecord.cat && m.q === current.mistakeRecord.q);
+            if(m) m.count = (m.count || 1) + 1;
+            else recordMistake(current.mistakeRecord.ch, current.mistakeRecord.cat, current.mistakeRecord.q);
+            localStorage.setItem('anna_mis', JSON.stringify(mistakes));
+            // 更新顯示的計數
+            let newCount = m ? m.count : (current.mistakeRecord.count + 1);
+            document.getElementById('redo-counter').innerText = `${redoIndex+1} / ${redoQuestions.length} (本題錯${newCount}次)`;
+            // 讓「下一題」按鈕可以重新嘗試（點擊後重新渲染同一題）
+            document.getElementById('redo-next-btn').onclick = () => { renderRedoQuestion(); };
+        }
+    }
+    
+    // ---- 正常答題邏輯 ----
     let curCh = "", curCat = "", curIdx = 0, totalQ = 0;
-    let curRedo = null;
+    
     function showPage(p) {
         document.querySelectorAll('.page').forEach(d=>d.classList.remove('active'));
         document.getElementById('page-'+p).classList.add('active');
@@ -683,19 +916,22 @@
         document.getElementById('nav-mis').classList.remove('active');
         if(p==='home') document.getElementById('nav-home').classList.add('active');
     }
+    
     function showMistakes() { showPage('mistake'); showMistakeStat(); }
+    
     function showMistakeStat() {
         document.querySelectorAll('.mistake-subpage').forEach(d=>d.style.display='none');
         document.getElementById('mistake-stat').style.display='block';
         renderStat();
     }
+    
     function showMistakeListView(ch) {
         document.querySelectorAll('.mistake-subpage').forEach(d=>d.style.display='none');
         document.getElementById('mistake-listview').style.display='block';
         document.getElementById('listview-title').innerText = `${ch} 錯題列表`;
         renderMistakeList(ch);
     }
-    function showMistakeListView2() { let ch = document.getElementById('listview-title').innerText.replace(' 錯題列表',''); showMistakeListView(ch); }
+    
     let chart = null;
     function renderStat() {
         let cnt = {}; mistakes.forEach(m=>cnt[m.ch]=(cnt[m.ch]||0)+m.count);
@@ -711,73 +947,54 @@
             let m = mistakes.filter(m=>m.ch===ch&&m.cat==='文章大意').reduce((s,m)=>s+m.count,0);
             let r = mistakes.filter(m=>m.ch===ch&&m.cat==='修辭手法').reduce((s,m)=>s+m.count,0);
             if(t+m+r===0) continue;
-            let div = document.createElement('div'); div.className='stat-card'; div.onclick = ()=>showMistakeListView(ch);
+            let div = document.createElement('div'); div.className='stat-card';
+            div.onclick = () => showMistakeListView(ch);
             div.innerHTML = `<h4>${ch}</h4><p>語譯:${t} 大意:${m} 修辭:${r}</p>`;
             grid.appendChild(div);
         }
         if(grid.children.length===0) grid.innerHTML='<div style="grid-column:1/-1;text-align:center">暫無錯題，繼續努力！</div>';
     }
+    
     function renderMistakeList(ch){
         let arr = mistakes.filter(m=>m.ch===ch);
         let cont = document.getElementById('mistake-list-container'); cont.innerHTML='';
         if(!arr.length){ cont.innerHTML='<div class="weak-box">🎉 此篇章暫無錯題！</div>'; return; }
-        for(let m of arr){
-            let div = document.createElement('div'); div.className='mistake-item';
-            let c = m.count||1;
-            div.style.backgroundColor = `rgba(231,76,60,${Math.min(0.4,0.1+c*0.05)})`;
-            div.innerHTML = `<div><strong>${m.cat}</strong>：${m.q}<div style="font-size:0.75rem;color:#e74c3c;">❌ 錯誤 ${c} 次</div></div><button class="redo-btn" data-ch="${m.ch}" data-cat="${m.cat}" data-q="${m.q}">重做</button>`;
-            cont.appendChild(div);
+        // 按類別分組顯示，每個類別一個重做按鈕
+        let cats = { "語譯": [], "文章大意": [], "修辭手法": [] };
+        for(let m of arr) cats[m.cat].push(m);
+        for(let cat of ["語譯","文章大意","修辭手法"]) {
+            if(cats[cat].length === 0) continue;
+            let groupDiv = document.createElement('div');
+            groupDiv.style.marginBottom = '20px';
+            groupDiv.style.background = '#faf0e6';
+            groupDiv.style.borderRadius = '20px';
+            groupDiv.style.padding = '12px';
+            groupDiv.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center;"><strong>📌 ${cat}</strong><button class="redo-cat-btn" data-cat="${cat}" style="background:#765C55; color:white; border:none; padding:6px 16px; border-radius:40px; cursor:pointer;">重做全部 ${cat} 錯題</button></div><hr style="margin:10px 0">`;
+            for(let m of cats[cat]) {
+                let div = document.createElement('div'); div.className='mistake-item';
+                let c = m.count||1;
+                div.style.backgroundColor = `rgba(231,76,60,${Math.min(0.4,0.1+c*0.05)})`;
+                div.innerHTML = `<div><strong>${m.cat}</strong>：${m.q}<div style="font-size:0.75rem;color:#e74c3c;">❌ 錯誤 ${c} 次</div></div>`;
+                groupDiv.appendChild(div);
+            }
+            cont.appendChild(groupDiv);
         }
-        document.querySelectorAll('#mistake-list-container .redo-btn').forEach(btn=>{
-            btn.onclick = ()=>{ let {ch,cat,q} = btn.dataset; startRedo(ch,cat,q); };
+        // 綁定類別重做按鈕
+        document.querySelectorAll('.redo-cat-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                let cat = btn.getAttribute('data-cat');
+                startRedoByCategory(ch, cat);
+            });
         });
     }
-    function startRedo(ch,cat,qText){
-        let m = mistakes.find(m=>m.ch===ch&&m.cat===cat&&m.q===qText);
-        if(!m) return;
-        let qObj = db[ch].items[cat].find(item=>item.q===qText);
-        if(!qObj) return;
-        curRedo = { ch, cat, qObj, count: m.count };
-        document.querySelectorAll('.mistake-subpage').forEach(d=>d.style.display='none');
-        document.getElementById('mistake-redo').style.display='block';
-        renderRedo();
+    
+    function startQuiz(cat){
+        curCat = cat; curIdx = 0;
+        let arr = db[curCh].items[cat];
+        if(!arr || arr.length===0){ alert("此模塊還沒有題目，請完善數據。"); return; }
+        totalQ = arr.length; showPage('quiz'); renderQ();
     }
-    function renderRedo(){
-        let q = curRedo.qObj;
-        document.getElementById('redo-counter').innerText = '1 / 1';
-        document.getElementById('redo-q-text').innerText = q.q;
-        document.getElementById('redo-anna-box').style.display='none';
-        let optDiv = document.getElementById('redo-options'); optDiv.innerHTML='';
-        q.a.forEach((txt,i)=>{
-            let btn = document.createElement('button'); btn.className='opt-btn'; btn.innerText=txt;
-            btn.onclick = ()=>{
-                if(i===q.c){
-                    btn.classList.add('correct');
-                    removeMistake(curRedo.ch, curRedo.cat, curRedo.qObj.q);
-                    alert('✅ 答對了！錯題已移除。');
-                    showMistakeListView(curRedo.ch);
-                    curRedo=null;
-                }else{
-                    btn.classList.add('wrong');
-                    document.getElementById('redo-anna-text').innerHTML = q.n;
-                    document.getElementById('redo-anna-box').style.display='block';
-                    let m = mistakes.find(m=>m.ch===curRedo.ch&&m.cat===curRedo.cat&&m.q===curRedo.qObj.q);
-                    if(m) m.count = (m.count||1)+1;
-                    else recordMistake(curRedo.ch,curRedo.cat,curRedo.qObj.q);
-                    localStorage.setItem('anna_mis',JSON.stringify(mistakes));
-                    document.getElementById('redo-next-btn').onclick = ()=>{ renderRedo(); };
-                }
-            };
-            optDiv.appendChild(btn);
-        });
-        document.getElementById('redo-next-btn').onclick = ()=>{ alert('請回答當前題目'); };
-    }
-    function check(idx, correct, note, btn) {
-        let curQ = db[curCh].items[curCat][curIdx];
-        if(idx===correct){ btn.classList.add('correct'); setTimeout(nextQ,800); }
-        else{ btn.classList.add('wrong'); document.getElementById('anna-text').innerHTML = note; document.getElementById('anna-box').style.display='block'; recordMistake(curCh, curCat, curQ.q); }
-    }
-    function nextQ(){ curIdx++; if(curIdx<totalQ) renderQ(); else { alert("模塊練習完成！"); showPage('sub'); } }
+    
     function renderQ(){
         let q = db[curCh].items[curCat][curIdx];
         document.getElementById('q-counter').innerText = `${curIdx+1}/${totalQ}`;
@@ -790,24 +1007,29 @@
             optDiv.appendChild(btn);
         });
     }
-    function startQuiz(cat){
-        curCat = cat; curIdx = 0;
-        let arr = db[curCh].items[cat];
-        if(!arr || arr.length===0){ alert("此模塊還沒有題目，請完善數據。"); return; }
-        totalQ = arr.length; showPage('quiz'); renderQ();
+    
+    function check(idx, correct, note, btn) {
+        let curQ = db[curCh].items[curCat][curIdx];
+        if(idx===correct){ btn.classList.add('correct'); setTimeout(nextQ,800); }
+        else{ btn.classList.add('wrong'); document.getElementById('anna-text').innerHTML = note; document.getElementById('anna-box').style.display='block'; recordMistake(curCh, curCat, curQ.q); }
     }
+    
+    function nextQ(){ curIdx++; if(curIdx<totalQ) renderQ(); else { alert("模塊練習完成！"); showPage('sub'); } }
+    
     function openSub(name){ curCh = name; document.getElementById('sub-title').innerText = name; showPage('sub'); }
     
+    // 生成目錄
     const listDiv = document.getElementById('chapter-list');
     for(let ch of chapters) listDiv.innerHTML += `<div class="chapter-card" onclick="openSub('${ch}')"><h3>${ch}</h3><p>${db[ch].author}</p></div>`;
     
-    // 暴露全域函數
+    // 全局函數暴露
     window.showPage = showPage;
     window.showMistakes = showMistakes;
     window.showMistakeStat = showMistakeStat;
     window.startQuiz = startQuiz;
     window.openSub = openSub;
     window.nextQ = nextQ;
+    window.showMistakeListView = showMistakeListView;
 </script>
 </body>
 </html>
